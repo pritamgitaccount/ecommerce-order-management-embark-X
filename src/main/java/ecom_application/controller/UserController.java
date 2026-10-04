@@ -19,21 +19,21 @@ public class UserController {
 
     private final UserService userService;
 
-
     @GetMapping("/users")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<UserResponse> users = userService.fetchAllUsers();
         return ResponseEntity.ok(users);
     }
 
+    //URL : http://localhost:8080/api/v1/users/{id}
     @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         return userService.fetchUserById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @PostMapping("/users")
+// URL: http://localhost:8080/api/v1/create-user
+    @PostMapping("/create-user")
     public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
 //        if (userRequest.getRole() == null) {
 //            userRequest.setRole(UserRole.CUSTOMER);
@@ -46,6 +46,7 @@ public class UserController {
     }
 
 
+    // URL: http://localhost:8080/api/v1/users/{id}
     @PutMapping("/users/{id}")
     public ResponseEntity<String> updateUser(@PathVariable Long id,
                                              @RequestBody UserRequest updatedUserRequest) {
@@ -56,5 +57,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
 }

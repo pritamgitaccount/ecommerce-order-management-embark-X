@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import ecom_application.role.UserRole;
 import lombok.Data;
 
+/**
+ * Response DTO containing the user details exposed by the API.
+ */
 @Data
 @JsonPropertyOrder({"id", "firstName", "lastName", "email", "phone", "role", "address"})
 public class UserResponse {

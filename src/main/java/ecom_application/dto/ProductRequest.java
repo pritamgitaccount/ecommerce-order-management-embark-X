@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * Request DTO containing the product details submitted to the API.
+ */
 @Data
 public class ProductRequest {
     private String name;

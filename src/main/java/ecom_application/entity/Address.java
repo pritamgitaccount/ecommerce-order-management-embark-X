@@ -7,6 +7,9 @@ import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * JPA entity containing a user's postal address.
+ */
 @Data
 @NoArgsConstructor
 @Entity(name = "addresses")

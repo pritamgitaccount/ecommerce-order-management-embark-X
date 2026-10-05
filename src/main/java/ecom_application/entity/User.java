@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
+/**
+ * JPA entity representing a customer or administrator in the application.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,4 +41,3 @@ public class User {
     private LocalDateTime updatedAt;
 
 }
-

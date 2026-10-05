@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * Response DTO containing product details exposed by the API.
+ */
 @Data
 @JsonPropertyOrder({"id", "name", "description", "price", "stockQuantity", "category", "imageUrl"})
 public class ProductResponse {

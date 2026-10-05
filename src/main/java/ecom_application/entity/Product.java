@@ -12,6 +12,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * JPA entity representing a product available in the store.
+ */
 @Entity
 @Table(name = "products")
 @Data

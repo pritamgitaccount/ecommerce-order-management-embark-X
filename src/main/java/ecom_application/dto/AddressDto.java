@@ -3,6 +3,9 @@ package ecom_application.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
+/**
+ * DTO containing postal address details for API requests and responses.
+ */
 @Data
 @JsonPropertyOrder({"street", "city", "state", "country", "zipCode"})
 public class AddressDto {

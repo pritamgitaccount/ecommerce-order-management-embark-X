@@ -9,11 +9,17 @@ import ecom_application.repository.ProductRepository;
 import ecom_application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+
 import static java.math.BigDecimal.valueOf;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CartService {
 
     private final CartRepository cartRepository;
@@ -37,10 +43,9 @@ public class CartService {
 
         Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
         if (userOpt.isEmpty()) return false;
-
         User user = userOpt.get();
-        CartItem existingCartItem = cartRepository.findByUserAndProduct(user, product);
 
+        CartItem existingCartItem = cartRepository.findByUserAndProduct(user, product);
         if (existingCartItem != null) {
             int newQuantity = existingCartItem.getQuantity() + request.getQuantity();
             if (product.getStockQuantity() < newQuantity) {
@@ -59,5 +64,23 @@ public class CartService {
             cartRepository.save(newCartItem);
         }
         return true;
+    }
+
+    public boolean removeItemFromCart(String userId, Long productId) {
+        Optional<Product> productOpt = productRepository.findById(productId);
+        Optional<User> userOpt = userRepository.findById(Long.valueOf(userId));
+
+        if (productOpt.isPresent() && userOpt.isPresent()) {
+            cartRepository.deleteByUserAndProduct(userOpt.get(), productOpt.get());
+            return true;
+        }
+        return false;
+    }
+
+    public List<CartItem> getCartItemDetails(String userId) {
+        return userRepository.findById(Long.valueOf(userId))
+                .map(cartRepository::findByUser)
+                .orElseGet(List::of);
+
     }
 }

@@ -2,27 +2,50 @@ spring:
   application:
     name: ecom-application
 
-  h2:
-    console:
-      enabled: true
+#  h2:
+#    console:
+#      enabled: true
 
   datasource:
-    url: jdbc:h2:mem:ecomdb
+    url: jdbc:postgresql://localhost:5432/ecomdb
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
+    database: POSTGRESQL
     show-sql: true
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        format_sql: true
 
 management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: beans, health
   endpoint:
     health:
       show-details: always
-    
+#    shutdown:
+#      enabled: true
+  info:
+    env:
+      enabled:
+#    server:
+#      shutdown: graceful
+
+
+info:
+  app:
+    name: Ecommerce application
+    description: Spring Boot and PostgreSQL database
+    version: 1.1.0

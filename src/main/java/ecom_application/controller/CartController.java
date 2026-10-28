@@ -42,12 +42,9 @@ public class CartController {
     }
 
     //URL : http://localhost:8080/api/cart/{userId}
-    @GetMapping("/{userId}")
+    @GetMapping
     public ResponseEntity<List<CartItem>> getCartItem(
             @RequestHeader("X-User-ID") String userId) {
-//        if (userId == null) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }
         List<CartItem> cartItemDetails = cartService.getCartItemDetails(userId);
         return ResponseEntity.ok(cartItemDetails);
     }

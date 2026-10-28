@@ -1,7 +1,7 @@
 package ecom_application.dto;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import ecom_application.role.UserRole;
+import ecom_application.enums.UserRole;
 import lombok.Data;
 
 /**

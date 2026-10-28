@@ -2,8 +2,6 @@ package ecom_application.controller;
 
 import ecom_application.dto.UserRequest;
 import ecom_application.dto.UserResponse;
-import ecom_application.entity.User;
-import ecom_application.role.UserRole;
 import ecom_application.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,7 +30,8 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
-// URL: http://localhost:8080/api/v1/create-user
+
+    // URL: http://localhost:8080/api/v1/create-user
     @PostMapping("/create-user")
     public ResponseEntity<String> createUser(@RequestBody UserRequest userRequest) {
 //        if (userRequest.getRole() == null) {

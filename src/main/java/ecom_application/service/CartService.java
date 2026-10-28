@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static java.math.BigDecimal.valueOf;
@@ -47,13 +46,8 @@ public class CartService {
 
         CartItem existingCartItem = cartRepository.findByUserAndProduct(user, product);
         if (existingCartItem != null) {
-            int newQuantity = existingCartItem.getQuantity() + request.getQuantity();
-            if (product.getStockQuantity() < newQuantity) {
-                return false;
-            }
-
-            existingCartItem.setQuantity(newQuantity);
-            existingCartItem.setPrice(product.getPrice().multiply(valueOf(newQuantity)));
+            existingCartItem.setQuantity(request.getQuantity());
+            existingCartItem.setPrice(product.getPrice().multiply(valueOf(request.getQuantity())));
             cartRepository.save(existingCartItem);
         } else {
             CartItem newCartItem = new CartItem();
@@ -82,5 +76,16 @@ public class CartService {
                 .map(cartRepository::findByUser)
                 .orElseGet(List::of);
 
+    }
+
+    public List<CartItem> getCartItems(Long userId) {
+        return userRepository.findById(userId)
+                .map(cartRepository::findByUser)
+                .orElseGet(List::of);
+    }
+
+    public void clearCart(String userId) {
+        userRepository.findById(Long.valueOf(userId))
+                .ifPresent(cartRepository::deleteByUser);
     }
 }
